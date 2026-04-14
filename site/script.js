@@ -75,11 +75,12 @@ async function majFilmsLesMieuxNotes() {
     
     const section = document.getElementById("films-les-mieux-notés")
     const grille = section.querySelector(".grille");
-    const article = grille.querySelectorAll("article");
 
-    for (let i = 0; i < MieuxNotes.length; i++) {
-        
-        const img = article[i].querySelector("img");
+    grille.innerHTML = "";
+    
+    for (let i = 0; i < 6; i++) {
+        const article = document.createElement("article")
+        const img = document.createElement("img");
         img.src = MieuxNotes[i].image_url;
         img.alt = "Affiche "  + MieuxNotes[i].titre
 
@@ -89,11 +90,23 @@ async function majFilmsLesMieuxNotes() {
             img.alt = "Affiche non disponible";
         };
 
-        const h3 = article[i].querySelector("h3");
+        const infos = document.createElement("div");
+        infos.classList.add("film-infos");
+
+        const h3 = document.createElement("h3");
         h3.textContent = MieuxNotes[i].title;
 
-        const button = article[i].querySelector("button");
+        const button = document.createElement("button");
+        button.textContent = "Détails";
         modalButton(button, MieuxNotes[i].id)
+
+        infos.appendChild(h3);
+        infos.appendChild(button);
+
+        article.appendChild(img);
+        article.appendChild(infos);
+
+        grille.appendChild(article);
         }
 }
 
@@ -105,7 +118,8 @@ async function majFilmsLesMieuxNotesParGenre(genre, sectionId) {
     const section = document.getElementById(sectionId)
     const h2 = section.querySelector("h2")
     const grille = section.querySelector(".grille");
-    const article = grille.querySelectorAll("article");
+
+    grille.innerHTML = "";
 
     if (sectionId !== "autres"){
         h2.textContent = genre
@@ -113,11 +127,10 @@ async function majFilmsLesMieuxNotesParGenre(genre, sectionId) {
         h2.textContent = "Autres: "
     };
 
-    article.forEach(a => a.style.display = "");
+    for (let i = 0; i < 6; i++) {
 
-    for (let i = 0; i < MieuxNotes.length; i++) {
-        
-        const img = article[i].querySelector("img");
+        const article = document.createElement("article")
+        const img = document.createElement("img");
         img.src = MieuxNotes[i].image_url;
         img.alt = "Affiche "  + MieuxNotes[i].titre
 
@@ -127,13 +140,27 @@ async function majFilmsLesMieuxNotesParGenre(genre, sectionId) {
             img.alt = "Affiche non disponible";
         };
 
-        const h3 = article[i].querySelector("h3");
+        const infos = document.createElement("div");
+        infos.classList.add("film-infos");
+
+        const h3 = document.createElement("h3");
         h3.textContent = MieuxNotes[i].title;
 
-        const button = article[i].querySelector("button");
+        const button = document.createElement("button");
+        button.textContent = "Détails";
         modalButton(button, MieuxNotes[i].id)
+
+                infos.appendChild(h3);
+        infos.appendChild(button);
+
+        article.appendChild(img);
+        article.appendChild(infos);
+
+        grille.appendChild(article);
         }
         
+        article.forEach(a => a.style.display = "");
+
         if (MieuxNotes.length < 6){
             for (let i = MieuxNotes.length ; i < 6; i++){
                 article[i].style.display = "none";
@@ -205,18 +232,18 @@ function modalButton(button, filmId){
 
 const mobileCloseButton = document.getElementById("mobile-modal-close");
 
-document.addEventListener("DOMContentLoaded", () => {
-    majMeilleurFilm()
-    majFilmsLesMieuxNotes()
-    menuDeroulantFill()
-    majFilmsLesMieuxNotesParGenre("Action", "categorie-1")
-    majFilmsLesMieuxNotesParGenre("Animation", "categorie-2")
-    majFilmsLesMieuxNotesParGenre("Action", "autres")
+// document.addEventListener("DOMContentLoaded", () => {
+majMeilleurFilm()
+majFilmsLesMieuxNotes()
+menuDeroulantFill()
+majFilmsLesMieuxNotesParGenre("Action", "categorie-1")
+majFilmsLesMieuxNotesParGenre("Animation", "categorie-2")
+majFilmsLesMieuxNotesParGenre("Action", "autres")
 
-    modalClose.addEventListener("click", () => {
-        modal.classList.remove("visible");
-    })
-    mobileCloseButton.addEventListener("click", () =>{
-        modal.classList.remove("visible")
-    })
+modalClose.addEventListener("click", () => {
+    modal.classList.remove("visible");
 })
+mobileCloseButton.addEventListener("click", () =>{
+    modal.classList.remove("visible")
+})
+// })

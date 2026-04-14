@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
-    max-width: 1024px;
+}
+
+body { 
+    max-width: 1024px; 
+    margin: 0 auto; 
 }
 
 header {
@@ -157,6 +161,8 @@ h2 {
 .grille article {
     width: 100%;
     max-width: 840px;
+
+
     justify-self: center;
     justify-content:center;
 
@@ -402,6 +408,8 @@ h2 {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        justify-content:center;
+        text-align: center;
 
     }
 
