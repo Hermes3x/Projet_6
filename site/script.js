@@ -15,6 +15,7 @@ const modalSynopsis = document.getElementById("modal-synopsis");
 const modalActeurs = document.getElementById("modal-acteurs");
 const modalClose = document.getElementById("modal-close");
 
+const maxFilmsParGrille = 6
 
 async function apiCall(url) {
     const APIReponse = await fetch(url)
@@ -78,7 +79,7 @@ async function majFilmsLesMieuxNotes() {
 
     grille.innerHTML = "";
     
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < maxFilmsParGrille; i++) {
         const article = document.createElement("article")
         const img = document.createElement("img");
         img.src = MieuxNotes[i].image_url;
@@ -127,7 +128,7 @@ async function majFilmsLesMieuxNotesParGenre(genre, sectionId) {
         h2.textContent = "Autres: "
     };
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < maxFilmsParGrille; i++) {
 
         const article = document.createElement("article")
         const img = document.createElement("img");
@@ -161,8 +162,8 @@ async function majFilmsLesMieuxNotesParGenre(genre, sectionId) {
         
         article.forEach(a => a.style.display = "");
 
-        if (MieuxNotes.length < 6){
-            for (let i = MieuxNotes.length ; i < 6; i++){
+        if (MieuxNotes.length < maxFilmsParGrille){
+            for (let i = MieuxNotes.length ; i < maxFilmsParGrille; i++){
                 article[i].style.display = "none";
             }
         }
